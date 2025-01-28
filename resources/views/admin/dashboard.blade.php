@@ -83,7 +83,7 @@ $role_id=Session('user_role_id');
                         <div class="col-lg-6">
                             <div class="card">
                                 <div class="card-body">
-                                  <h2>Hello</h2>
+                                  <h2>Hello world</h2>
                                     <h5 class="card-title text-success">My Appointments</h5>
                                     <p>View your upcoming and past appointments.</p>
                                     <a href="" class="btn btn-success">View Appointments</a>
