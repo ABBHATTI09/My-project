@@ -258,7 +258,18 @@ $user = \App\Models\User::find($user_id);
               <ul class="navbar-nav flex-row align-items-center ms-auto">
                 <!-- Place this tag where you want the button to render. -->
                 
-
+                <!--User Role name-->
+                <li>Logged In As 
+                  @if($user->role_id==1)
+                  Admin
+                  @endif
+                  @if($user->role_id==2)
+                  Doctor
+                  @endif
+                  @if($user->role_id==3)
+                  Users / Patient
+                  @endif
+                </li>
                 <!-- User -->
                 <li class="nav-item navbar-dropdown dropdown-user dropdown">
                   <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
@@ -284,10 +295,21 @@ $user = \App\Models\User::find($user_id);
                                 @endif
                             </div>
                           </div>
-                          <!-- <div class="flex-grow"> -->
-                            <!-- <span class="fw-semibold d-block">{{$user->fname}} {{$user->lname}}</span> -->
-                             <h6>{{$user->fname}} {{$user->lname}}</h6>
-                          <!-- </div> -->
+                          <div class="flex-grow">
+                            <span class="fw-semibold d-block">{{$user->fname}} {{$user->lname}}</span>
+                             <small class="text-muted">
+                              @if($user->role_id==1)
+                              Admin
+                              @endif
+                              @if($user->role_id==2)
+                              Doctor
+                              @endif
+                              @if($user->role_id==3)
+                              Users / Patient
+                              @endif
+                             </small>
+                             
+                          </div>
                         </div>
                     </li>
                     <li>
