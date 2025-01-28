@@ -161,6 +161,7 @@ $user = \App\Models\User::find($user_id);
                 <div data-i18n="Analytics">Dashboard</div>
               </a>
             </li>
+            <!--Admin role start-->
             @if($user->role_id==1)
              <!-- doctor -->
              <li class="menu-item {{ request()->routeIs('doctor.index') ? 'active' : '' }}">
@@ -168,16 +169,57 @@ $user = \App\Models\User::find($user_id);
                 <i class="menu-icon tf-icons fa fa-user-md"></i>
                 <div data-i18n="Layouts">Doctor</div>
               </a>
-            </li>
+              </li>
 
-            <!-- users -->
-            <li class="menu-item {{ request()->routeIs('patient.index') ? 'active' : '' }}">
-              <a href="{{route('patient.index')}}" class="menu-link ">
-                <i class="menu-icon tf-icons bx bx-user-circle"></i>
-                <div data-i18n="Layouts">User/Patient</div>
-              </a>
-            </li>
+              <!-- users -->
+              <li class="menu-item {{ request()->routeIs('patient.index') ? 'active' : '' }}">
+                <a href="{{route('patient.index')}}" class="menu-link ">
+                  <i class="menu-icon tf-icons bx bx-user-circle"></i>
+                  <div data-i18n="Layouts">User/Patient</div>
+                </a>
+              </li>
            @endif
+           <!--Admin role end-->
+        <!--Doctor role start-->
+        @if($user->role_id==2)
+             <!-- doctor -->
+             <li class="menu-item {{ request()->routeIs('upcoming.appointment') ? 'active' : '' }}">
+              <a href="{{route('upcoming.appointment')}}" class="menu-link ">
+                <i class="menu-icon tf-icons fa fa-user-md"></i>
+                <div data-i18n="Layouts">Upcoming Appointments</div>
+              </a>
+              </li>
+
+              <!-- users -->
+              <li class="menu-item {{ request()->routeIs('appointment.records') ? 'active' : '' }}">
+                <a href="{{route('appointment.records')}}" class="menu-link ">
+                  <i class="menu-icon tf-icons bx bx-user-circle"></i>
+                  <div data-i18n="Layouts">Patient Records</div>
+                </a>
+              </li>
+           @endif
+        
+        <!--Doctor role end-->
+
+        <!--User role start-->
+        @if($user->role_id==3)
+             <!-- doctor -->
+             <li class="menu-item {{ request()->routeIs('booking.index') ? 'active' : '' }}">
+              <a href="{{route('booking.index')}}" class="menu-link ">
+                <i class="menu-icon tf-icons fa fa-user-md"></i>
+                <div data-i18n="Layouts">Book Appointment</div>
+              </a>
+              </li>
+
+              <!-- users -->
+              <li class="menu-item {{ request()->routeIs('appointment.index') ? 'active' : '' }}">
+                <a href="{{route('appointment.index')}}" class="menu-link ">
+                  <i class="menu-icon tf-icons bx bx-user-circle"></i>
+                  <div data-i18n="Layouts">My Appointments</div>
+                </a>
+              </li>
+           @endif
+        <!--User role end-->
              
            
            

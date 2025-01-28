@@ -6,6 +6,7 @@ use App\Http\Controllers\DoctorController;
 use App\Http\Controllers\PatientController;
 use App\Http\Controllers\ForgotPasswordController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\BookingController;
 
 /*
 |--------------------------------------------------------------------------
@@ -56,6 +57,13 @@ Route::middleware('Checklogin')->group(function(){
     Route::get('/patient/delete/{id}',[PatientController::class,'delete'])->name('patient.delete');
     });
 
+    //Booking and appointments
+    Route::get('/booking',[BookingController::class,'index'])->name('booking.index');
+    Route::get('/myappointments',[BookingController::class,'appointment'])->name('appointment.index');
+
+    //Upcomming appointments and Rercords
+    Route::get('/upcoming/appointments',[BookingController::class,'upcoming_appointment'])->name('upcoming.appointment');
+    Route::get('/appointment/records',[BookingController::class,'records'])->name('appointment.records');
 
 });
 
