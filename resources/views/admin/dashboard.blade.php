@@ -25,7 +25,7 @@ $role_id=Session('user_role_id');
                             <div class="card">
                                 <div class="card-body">
                                     <h5 class="card-title text-primary">Admin Actions</h5>
-                                    <p>Manage users, doctors, appointments, and more.</p>
+                                    <p>Manage users, doctors, , and more.</p>
                                     <a href="" class="btn btn-primary">Manage Users</a>
                                 </div>
                             </div>
