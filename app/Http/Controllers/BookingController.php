@@ -51,7 +51,9 @@ class BookingController extends Controller
     }
 
     public function upcoming_appointment(){
-        return view('Booking.upcomimg');
+        $user_id=session('user_id');
+        $appointments = Bookingpatient::where('doctor_id',$user_id)->with(['patient','doctor'])->latest()->paginate(5);
+        return view('Booking.upcomimg',compact('appointments'));
     }
 
     public function records(){

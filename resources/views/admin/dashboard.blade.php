@@ -24,18 +24,18 @@ $role_id=Session('user_role_id');
                         <div class="col-lg-4">
                             <div class="card">
                                 <div class="card-body">
-                                    <h5 class="card-title text-primary">Admin Actions</h5>
-                                    <p>Manage users, doctors, appointments, and more.</p>
-                                    <a href="" class="btn btn-primary">Manage Users</a>
+                                    <h5 class="card-title text-primary">Doctor Records</h5>
+                                    <p>Mange to doctor details to admin etc.</p>
+                                    <a href="{{route('doctor.index')}}" class="btn btn-primary">Manage Doctors</a>
                                 </div>
                             </div>
                         </div>
                         <div class="col-lg-4">
                             <div class="card">
                                 <div class="card-body">
-                                    <h5 class="card-title text-success">System Reports</h5>
-                                    <p>View and analyze reports on system performance.</p>
-                                    <a href="" class="btn btn-success">View Reports</a>
+                                    <h5 class="card-title text-success">Patient Reports</h5>
+                                    <p>Mange to Patient details to admin etc.</p>
+                                    <a href="{{route('patient.index')}}" class="btn btn-success">Mange Patients</a>
                                 </div>
                             </div>
                         </div>
@@ -51,7 +51,7 @@ $role_id=Session('user_role_id');
                                 <div class="card-body">
                                     <h5 class="card-title text-warning">Upcoming Appointments</h5>
                                     <p>Review your appointments for the day.</p>
-                                    <a href="" class="btn btn-warning">View Appointments</a>
+                                    <a href="{{route('upcoming.appointment')}}" class="btn btn-warning">View  Appointments</a>
                                 </div>
                             </div>
                         </div>
@@ -60,7 +60,7 @@ $role_id=Session('user_role_id');
                                 <div class="card-body">
                                     <h5 class="card-title text-info">Patient Records</h5>
                                     <p>Access patient medical records securely.</p>
-                                    <a href="" class="btn btn-info">View Records</a>
+                                    <a href="{{route('appointment.records')}}" class="btn btn-info">View Records</a>
                                 </div>
                             </div>
                         </div>
@@ -76,7 +76,7 @@ $role_id=Session('user_role_id');
                                 <div class="card-body">
                                     <h5 class="card-title text-primary">Book Appointment</h5>
                                     <p>Schedule a visit with a doctor of your choice.</p>
-                                    <a href="" class="btn btn-primary">Book Now</a>
+                                    <a href="{{route('booking.index')}}" class="btn btn-primary">Book Now</a>
                                 </div>
                             </div>
                         </div>
@@ -86,7 +86,7 @@ $role_id=Session('user_role_id');
                                   
                                     <h5 class="card-title text-success">My Appointments</h5>
                                     <p>View your upcoming and past appointments.</p>
-                                    <a href="" class="btn btn-success">View Appointments</a>
+                                    <a href="{{route('appointment.index')}}" class="btn btn-success">View Appointments</a>
                                 </div>
                             </div>
                         </div>
