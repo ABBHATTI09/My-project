@@ -59,6 +59,7 @@ Route::middleware('Checklogin')->group(function(){
 
     //Booking and appointments
     Route::get('/booking',[BookingController::class,'index'])->name('booking.index');
+    Route::post('/booking/store',[BookingController::class,'store'])->name('booking.store');
     Route::get('/myappointments',[BookingController::class,'appointment'])->name('appointment.index');
 
     //Upcomming appointments and Rercords

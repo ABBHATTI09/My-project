@@ -204,12 +204,12 @@ $user = \App\Models\User::find($user_id);
         <!--User role start-->
         @if($user->role_id==3)
              <!-- doctor -->
-             <li class="menu-item {{ request()->routeIs('booking.index') ? 'active' : '' }}">
+             <!-- <li class="menu-item {{ request()->routeIs('booking.index') ? 'active' : '' }}">
               <a href="{{route('booking.index')}}" class="menu-link ">
                 <i class="menu-icon tf-icons fa fa-user-md"></i>
                 <div data-i18n="Layouts">Book Appointment</div>
               </a>
-              </li>
+              </li> -->
 
               <!-- users -->
               <li class="menu-item {{ request()->routeIs('appointment.index') ? 'active' : '' }}">
