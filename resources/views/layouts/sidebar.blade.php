@@ -196,7 +196,7 @@ $user = \App\Models\User::find($user_id);
                   <i class="menu-icon tf-icons bx bx-user-circle"></i>
                   <div data-i18n="Layouts">Patient Records</div>
                 </a>
-              </li>
+              </li>  
            @endif
         
         <!--Doctor role end-->
