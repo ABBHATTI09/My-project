@@ -41,6 +41,7 @@
                         <th>Appointment Date</th>
                         <th>Appointment Time</th>
                         <th>Booking Type</th>
+                        <th>Appointment Status</th>
                         <th>Action</th>
                       </tr>
                     </thead>
@@ -63,9 +64,24 @@
                            @endif
                         </td>
                         <td>
+                            @if($appointment->status==1)
+                            <span class="badge bg-label-danger ">Reject</span>
+
+                            @elseif($appointment->status==2)
+                            <span class="badge bg-label-success ">Approval</span>
+
+                            @elseif($appointment->status==3)
+                            <span class="badge bg-label-info ">closed</span>
+
+                            @else
+                            <span class="badge bg-label-warning ">Pending</span>
+
+                            @endif
+                        </td>
+                        <td>
                         <div class="btn-group">
                           <a href="" data-bs-toggle="modal" data-bs-target="#editTask{{$appointment->id}}" class="btn" ><i class="bx bx-edit-alt" title="Edit"></i></a>
-                          <a href="{{route('doctor.delete',$appointment->id)}}" class="btn btn-delete" > <i class="bx bx-trash" title="Delete"></i></a> 
+                          <a href="{{route('appointment.delete',$appointment->id)}}" class="btn btn-delete" > <i class="bx bx-trash" title="Delete"></i></a> 
                         
                       </div>
                       
@@ -91,48 +107,60 @@
                                 ></button>
                               </div>
 
-                              <form action="{{route('doctor.edit',$appointment->id)}}" method="POST">
+                              <form action="{{route('booking.edit',$appointment->id)}}" method="POST">
                                 @csrf
                             <div class="modal-body">
                                 <div class="row">
                                   
-                                  <div class="col mb-3">
-                                    <label for="nameBasic" class="form-label">First Name</label>
-                                    <input type="text" id="nameBasic" class="form-control" name="first_name" placeholder="" aria-describedby="p_password"             value=""    />
-                                    @error('first_name')
+                                  <div class="col mb-6">
+                                  <label class="form-label" for="patient-select">Patient Full Name</label>
+                                    <select class="form-control" name="patient_name" id="patient-select">
+                                        <option value="" disabled>Select Patient</option>
+                                        <option value="{{$appointment->patient_id}}">
+                                            {{$appointment->patient->fname}} {{$appointment->patient->lname}}
+                                        </option>
+                                    </select>
+                                    @error('patient_name')
                                             <span class="text-danger" role="alert">
                                             <strong>{{ $message }}</strong>
                                         </span>
                                     @enderror
                                   </div>
-                                  <div class="col mb-3">
-                                    <label for="nameBasic" class="form-label">Last Name</label>
-                                    <input type="text" id="nameBasic" class="form-control" name="last_name" placeholder="" aria-describedby="p_password"             value=""    />
-                                    @error('last_name')
-                                            <span class="text-danger" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-                                  </div>
+                                  
                                   
                                                     </div>
 
                                 <div class="row">
                                   <div class="col mb-3">
-                                    <label for="nameBasic" class="form-label">Email Address</label>
-                                    <input type="email" id="nameBasic" class="form-control" name="email" placeholder="" value="" aria-describedby="n_password" />
-                                    @error('email')
+                                  <label class="form-label" for="patient-select">Select Doctor</label>
+                                      <select class="form-control" name="doctor_name" id="patient-select">
+                                          <option value="" disabled>Select Doctor</option>
+                                          @foreach($doctors as $doctor)
+                                          <option value="{{ $doctor->id }}" 
+                                              {{ $appointment->doctor_id == $doctor->id ? 'selected' : '' }}>
+                                              {{ $doctor->fname }} {{ $doctor->lname }}
+                                          </option>
+                                          @endforeach
+                                      </select>
+                                      @error('doctor_name')
                                             <span class="text-danger" role="alert">
                                             <strong>{{ $message }}</strong>
                                         </span>
-                                    @enderror
+                                      @enderror
                                   </div>
                                 </div>
                                 <div class="row">
                                   <div class="col mb-3">
-                                    <label for="nameBasic" class="form-label">phone Number</label>
-                                    <input type="text" id="nameBasic" class="form-control" name="phone_number" placeholder="" value="" aria-describedby="n_password" />
-                                    @error('phone_number')
+                                  <label for="date_of_suggest">Select Date</label>
+                                <input 
+                                type="date" 
+                                class="form-control" 
+                                id="date_of_suggest" 
+                                name="appointment_date" 
+                                value="{{$appointment->appointment_date}}"
+                                min="1980-01-01" 
+                                />
+                                @error('appointment_date')
                                             <span class="text-danger" role="alert">
                                             <strong>{{ $message }}</strong>
                                         </span>
@@ -142,21 +170,42 @@
                
                                     <div class="row">
                                       <div class="col mb-3">
-                                          <label for="statusDropdown" class="form-label">Task Status</label>
-                                          <select id="statusDropdown" class="form-control" name="status" >
-                                          <option value=""disabled>---choose User status---</option>
-                                         
-                                          </select>
-                                          @error('status')
+                                      <label for="to_time">Select Time</label>
+                                <input 
+                                type="time" 
+                                class="form-control" 
+                                id="to_time" 
+                                name="appointment_time" 
+                                value="{{$appointment->appointment_time}}"
+                                />
+                                @error('appointment_time')
                                             <span class="text-danger" role="alert">
                                             <strong>{{ $message }}</strong>
                                         </span>
                                     @enderror
                                       </div>
                                     </div>
+                                    <div class="row">
+                                <div class="col-md-12">
+                                <label class="form-label" for="basic-default-fullname">Booking Type</label>
+                         <div class="col-sm-112">
+                          <select name="booking_type" id="booking_type" class="form-control">
+                            <option value="" disabled class="text-center">---choose Booking Type---</option>
+                            <option value="1" {{ old('booking_type', isset($appointment->booking_type) ? $appointment->booking_type : '') == 1 ? 'selected' : '' }}>Normal Booking</option>
+                            <option value="0" {{ old('booking_type', isset($appointment->booking_type) ? $appointment->booking_type : '') == 0 ? 'selected' : '' }}>Emergency Booking</option>
+                          </select>
+                          @error('booking_type')
+                                            <span class="text-danger" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                         
+                                </div>
+                              </div>
 
                                
                               </div>
+                            
                               <div class="modal-footer">
                                 <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
                                   Close
@@ -240,5 +289,26 @@
         </div>
     </div>
 </div>
+ <!-- JavaScript to Set Min Date & Time -->
+ <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        // Set minimum date to today
+        let today = new Date().toISOString().split('T')[0]; 
+        document.getElementById("date_of_suggest").setAttribute("min", today);
 
+        // Function to update the minimum time if today is selected
+        document.getElementById("date_of_suggest").addEventListener("change", function() {
+            let selectedDate = this.value;
+            let now = new Date();
+            let currentTime = now.toTimeString().slice(0,5); // Get HH:MM format
+
+            // If today is selected, set min time to current time
+            if (selectedDate === today) {
+                document.getElementById("to_time").setAttribute("min", currentTime);
+            } else {
+                document.getElementById("to_time").removeAttribute("min");
+            }
+        });
+    });
+</script>
 @endsection

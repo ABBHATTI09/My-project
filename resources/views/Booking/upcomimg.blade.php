@@ -81,7 +81,6 @@
                         <td>
                         <div class="btn-group">
                           <a href="" data-bs-toggle="modal" data-bs-target="#editTask{{$appointment->id}}" class="btn" ><i class="bx bx-edit-alt" title="Edit"></i></a>
-                          <a href="{{route('doctor.delete',$appointment->id)}}" class="btn btn-delete" > <i class="bx bx-trash" title="Delete"></i></a> 
                         
                       </div>
                       
@@ -107,7 +106,7 @@
                                 ></button>
                               </div>
 
-                              <form action="{{route('doctor.edit',$appointment->id)}}" method="POST">
+                              <form action="{{route('appointment.status',$appointment->id)}}" method="POST">
                                 @csrf
                             <div class="modal-body">
                               

@@ -129,6 +129,40 @@
               </div>
             </div>
             <!-- / Content -->
+             
+              <!-- Horizontal -->
+              <h5 class="pb-1 mb-4">Doctor Details</h5>
+              @foreach($doctors->chunk(2) as $doctorChunk)
+        <div class="row">
+            @foreach($doctorChunk as $doctor)
+                <div class="col-md-6 mb-3">
+                    <div class="card">
+                        <div class="row g-0">
+                            <div class="col-md-4 d-flex justify-content-center align-items-center">
+                              @if($doctor->image)
+                              <img class="d-block rounded " src="{{ asset('images/'.$doctor->image) }}" height="100" width="100" alt="Card image" />
+                              @else
+                              <img class="d-block rounded " src="{{ asset('images/default.jpg') }}" height="100" width="100" alt="Card image" />
+                              @endif
+                            </div>
+                            <div class="col-md-8">
+                                <div class="card-body">
+                                    <h5 class="card-title">{{ $doctor->fname }} {{ $doctor->lname }}</h5>
+                                    <p class="card-text">
+                                      Email : {{$doctor->email}}
+                                      <br>
+                                      Phone : {{$doctor->phone}}
+                                    </p>
+ 
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            @endforeach
+        </div>
+    @endforeach
+              <!--/ Horizontal -->
 
            
 

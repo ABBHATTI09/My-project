@@ -60,10 +60,15 @@ Route::middleware('Checklogin')->group(function(){
     //Booking and appointments
     Route::get('/booking',[BookingController::class,'index'])->name('booking.index');
     Route::post('/booking/store',[BookingController::class,'store'])->name('booking.store');
+    Route::post('/booking/edit/{id}',[BookingController::class,'booking_edit'])->name('booking.edit');
     Route::get('/myappointments',[BookingController::class,'appointment'])->name('appointment.index');
 
     //Upcomming appointments and Rercords
     Route::get('/upcoming/appointments',[BookingController::class,'upcoming_appointment'])->name('upcoming.appointment');
+    Route::post('/appointment/status/{id}',[BookingController::class,'appointment_status'])->name('appointment.status');
+    Route::get('/appointment/delete/{id}',[BookingController::class,'appointment_delete'])->name('appointment.delete');
+
+
     Route::get('/appointment/records',[BookingController::class,'records'])->name('appointment.records');
 
 });
