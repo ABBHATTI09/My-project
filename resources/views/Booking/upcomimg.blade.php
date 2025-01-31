@@ -90,7 +90,7 @@
                       <div class="mt-3">
                         <!-- Button trigger modal -->
                         
-
+          
                         <!-- Modal -->
                         <div class="modal fade  @if ($errors->has('first_name') ||$errors->has('last_name')||$errors->has('status')||$errors->has('email')||$errors->has('phone_number')) show @endif" id="editTask{{$appointment->id}}" tabindex="-1" aria-hidden="true"  @if ($errors->has('first_name') ||$errors->has('last_name')||$errors->has('status')||$errors->has('email')||$errors->has('phone_number')) style="display: block;" @endif >
                         
