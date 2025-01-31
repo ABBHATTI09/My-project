@@ -157,6 +157,11 @@ class BookingController extends Controller
     //delete appointment booking
     public function appointment_delete($id){
         $doctor=Bookingpatient::findOrFail($id);
+        if($doctor->status !=0){
+            return back()->with('error','Appointment cannot be deleted because it has been confirmed by the doctor');
+          //  dd('ab');
+        }
+        dd($doctor);
         $doctor->delete();
         
         return back()->with('success','Appointment deleted !!');
