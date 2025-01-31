@@ -13,26 +13,37 @@
               <!-- Basic Bootstrap Table -->
               <div class="card">
               <div class="card-header d-flex justify-content-between align-items-center">
-              <!-- Search -->
-              <!-- <div class="navbar-nav align-items-center">
-                <div class="nav-item d-flex align-items-center">
-                  <input
-                    type="text"
-                    class="form-control border-0 shadow-block"
-                    placeholder="Search..."
-                    aria-label="Search..."
-                  />
-                  <i class="bx bx-search fs-4 lh-0"></i>
-
+                <div class="navbar-nav align-items-center">
+                    <div class="nav-item d-flex align-items-center">
+                        <form action="{{ route('appointment.index') }}" method="GET" class="d-flex">
+                            <div class="input-group">
+                                <input
+                                    type="text"
+                                    class="form-control border-0 shadow-block"
+                                    id="searchInput"
+                                    name="search"
+                                    placeholder="Search by Patient or Doctor..."
+                                    value="{{ request('search') }}"
+                                    aria-label="Search..."
+                                    style="border-radius: 0.375rem 0 0 0.375rem; padding-left: 1.5rem;"
+                                />
+                            </div>
+                            <button type="submit" class="btn btn-primary">
+                            <i class="bx bx-search fs-4 lh-0"></i>
+                            </button>
+                            <a href="{{ route('appointment.index') }}" class="btn btn-primary ms-2">
+                                <i class="bx bx-refresh fs-4 lh-0"></i> 
+                            </a>
+                        </form>
+                    </div>
                 </div>
-              </div> -->
-              <!-- /Search -->
-              <!-- <input type="text" name="search" placeholder="search..."     value="{{ request('search') }}"> -->
+
                 <a href="{{route('booking.index')}}" class="btn btn-primary"> Add Appointment</a>
+                
                 </div>
 
                 <div class="table-responsive text-nowrap">
-                  <table class="table">
+                  <table class="table" id="appointmentsTable">
                     <thead>
                       <tr>
                         <th> No.</th>
@@ -240,6 +251,7 @@
                     </tbody>
                   </table>
                 </div>
+                
                 <!-- Pagination Links -->
                 <div class="d-flex justify-content-end mt-3">
                 {{ $appointments->links('pagination::bootstrap-5') }}
@@ -289,21 +301,17 @@
         </div>
     </div>
 </div>
- <!-- JavaScript to Set Min Date & Time -->
  <script>
     document.addEventListener("DOMContentLoaded", function() {
-        // Set minimum date to today
         let today = new Date().toISOString().split('T')[0]; 
         document.getElementById("date_of_suggest").setAttribute("min", today);
 
-        // Function to update the minimum time if today is selected
         document.getElementById("date_of_suggest").addEventListener("change", function() {
             let selectedDate = this.value;
             let now = new Date();
-            let currentTime = now.toTimeString().slice(0,5); // Get HH:MM format
+            let currentTime = now.toTimeString().slice(0,5); 
 
-            // If today is selected, set min time to current time
-            if (selectedDate === today) {
+\            if (selectedDate === today) {
                 document.getElementById("to_time").setAttribute("min", currentTime);
             } else {
                 document.getElementById("to_time").removeAttribute("min");
@@ -311,4 +319,5 @@
         });
     });
 </script>
+
 @endsection

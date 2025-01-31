@@ -71,6 +71,10 @@ Route::middleware('Checklogin')->group(function(){
 
     Route::get('/appointment/records',[BookingController::class,'records'])->name('appointment.records');
 
+    Route::get('/booking-email',function(){
+        return view('mail.doctorshow');
+    });
+
 });
 
 //check logout

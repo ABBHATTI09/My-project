@@ -28,7 +28,7 @@
                             <select class="form-control" name="patient_name" id="patient-select">
                                 <option value="" disabled>Select Patient</option>
                                 <option value="{{$user->id}}">
-                                    {{$user->fname}}{{$user->lname}}
+                                    {{$user->fname}} {{$user->lname}}
                                 </option>
                             </select>
                                     @error('patient_name')
@@ -46,7 +46,7 @@
                                 <option value="" disabled>Select Doctor</option>
                                 @foreach($doctors as $doctor)
                                 <option value="{{$doctor->id}}">
-                                    {{$doctor->fname}}{{$doctor->lname}}
+                                    {{$doctor->fname }} {{$doctor->lname}}
                                 </option>
                                 @endforeach
                             </select>
@@ -60,9 +60,9 @@
                        
                       
                        
-                        <div class="form-row">
+                        <div class="form-row" id ="dateandtime" style="display: none;">
                             <!-- Date Selection -->
-                            <div class="row">
+                            <div class="row" >
                             <div class="form-group col-sm-6 col-md-6 ">
                                 <label for="date_of_suggest">Select Date</label>
                                 <input 
@@ -171,26 +171,40 @@
           <!-- Content wrapper -->
 
 
-          <!-- JavaScript to Set Min Date & Time -->
 <script>
     document.addEventListener("DOMContentLoaded", function() {
-        // Set minimum date to today
-        let today = new Date().toISOString().split('T')[0]; 
-        document.getElementById("date_of_suggest").setAttribute("min", today);
+        let today = new Date();
+        today.setDate(today.getDate() + 1);
+        let tomorrow = today.toISOString().split('T')[0];
+        document.getElementById("date_of_suggest").setAttribute("min", tomorrow);
 
-        // Function to update the minimum time if today is selected
         document.getElementById("date_of_suggest").addEventListener("change", function() {
             let selectedDate = this.value;
-            let now = new Date();
-            let currentTime = now.toTimeString().slice(0,5); // Get HH:MM format
-
-            // If today is selected, set min time to current time
-            if (selectedDate === today) {
-                document.getElementById("to_time").setAttribute("min", currentTime);
-            } else {
-                document.getElementById("to_time").removeAttribute("min");
-            }
+          //  alert(selectedDate);
+          
         });
     });
+</script>
+
+
+<script>
+      document.addEventListener("DOMContentLoaded", function () {
+        let bookingType = document.getElementById("booking_type");
+        let dateToTime = document.getElementById("datetotime");
+        function toggleDateToTime() {
+            if (bookingType.value == "1") {
+             // alert('ab');
+             dateandtime.style.display = "block";
+            } else {
+              dateandtime.style.display = "none";
+            }
+        }
+
+        bookingType.addEventListener("change", toggleDateToTime);
+
+        // Call the function initially to handle pre-selected values
+        toggleDateToTime();
+
+      });
 </script>
 @endsection
