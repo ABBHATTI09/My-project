@@ -63,7 +63,7 @@
             <p><strong>Appointment Time:</strong> <span class="highlight">{{ date('h:i A', strtotime($data['appointment_time'])) }}</span></p>
             <p><strong>Booking Type:</strong> <span class="highlight">Normal Booking Appointment</span></p>
             <p><strong>Booking status:</strong> <span class="highlight">Pending</span></p>
-
+     
             @else
           
             <p><strong>Booking Type:</strong> <span class="highlight">Emergency Booking Appointment</span></p>
