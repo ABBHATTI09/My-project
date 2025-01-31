@@ -215,7 +215,7 @@ class BookingController extends Controller
             'status'=>$request->status,
         ];
 
-        //mail update booking status to patient/user
+        //mail update booking 
         Mail::send('mail.doctorstatus', ['data' => $data], function($message) use($email){
             $message->to($email);
             $message->subject('Appointment Booking Status Updated');
