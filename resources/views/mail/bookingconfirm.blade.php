@@ -54,7 +54,7 @@
             <h2>Appointment Booking Confirmation</h2>
         </div>
 
-        <div class="content">
+        <div class="content">   
             <p>Dear <span class="highlight">{{$data['patient_name']}}</span>,</p>
 
             <p>Thank you for booking an appointment with Dr. <span class="highlight">{{$data['doctor_name']}}</span>! Here are the details of your appointment:</p>
