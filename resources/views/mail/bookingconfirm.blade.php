@@ -55,9 +55,9 @@
         </div>
 
         <div class="content">   
-            <p>Dear <span class="highlight">{{$data['patient_name']}}</span>,</p>
+            <p>Dear <strong><span class="highlight">{{$data['patient_name']}}</span></strong>,</p>
 
-            <p>Thank you for booking an appointment with Dr. <span class="highlight">{{$data['doctor_name']}}</span>! Here are the details of your appointment:</p>
+            <p>Thank you for booking an appointment with Dr. <strong><span class="highlight">{{$data['doctor_name']}}</span></strong>! Here are the details of your appointment:</p>
             @if($data['booking_type']==1)
             <p><strong>Appointment Date:</strong> <span class="highlight">{{$data['appointment_date']}}</span></p>
             <p><strong>Appointment Time:</strong> <span class="highlight">{{ date('h:i A', strtotime($data['appointment_time'])) }}</span></p>

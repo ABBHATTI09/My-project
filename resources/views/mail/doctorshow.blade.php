@@ -53,20 +53,39 @@
         <div class="header">
             <h2>Appointment Booking Confirmation</h2>
         </div>
-
+        @if($data['status']==2)
+        <p>Dear Dr. <strong>{{$data['doctor_name']}}</strong></p>
+        @endif
         <div class="content">
-            <p>Dear Dr. <span class="highlight">{{$data['doctor_name']}}</span>,</p>
 
-            <p>We would like to inform you that an appointment has been booked with you by <span class="highlight">{{$data['patient_name']}}</span>. Here are the details of the appointment:</p>
+            <p>We would like to inform you that an appointment has been booked  by <strong><span class="highlight">{{$data['patient_name']}}</span></strong>. Here are the details of the appointment:</p>
             @if($data['booking_type']==1)
+            <p><strong>Appointment Doctor:</strong> <strong><span class="highlight">{{$data['doctor_name']}}</span></strong></p>
             <p><strong>Appointment Date:</strong> <span class="highlight">{{$data['appointment_date']}}</span></p>
             <p><strong>Appointment Time:</strong> <span class="highlight">{{ date('h:i A', strtotime($data['appointment_time'])) }}</span></p>
             <p><strong>Booking Type:</strong> <span class="highlight">Normal Booking Appointment</span></p>
-            <p><strong>Booking Status:</strong> <span class="highlight">Pending</span></p>
+            <p><strong>Booking Status:</strong> <span class="highlight">
+            @if($data['status']==1)
+                Rejected
+                @elseif($data['status']==2)
+                Approval
+                @else
+                Pending
+                @endif
+            </span></p>
 
             @else
+            <p><strong>Appointment Doctor:</strong> <span class="highlight">{{$data['doctor_name']}}</span></p>
             <p><strong>Booking Type:</strong> <span class="highlight">Emergency Booking Appointment</span></p>
-            <p><strong>Booking Status:</strong> <span class="highlight">Pending</span></p>
+            <p><strong>Booking Status:</strong> <span class="highlight">
+            @if($data['status']==1)
+                Rejected
+                @elseif($data['status']==2)
+                Approval
+                @else
+                Pending
+                @endif
+            </span></p>
             @endif
 
             <p>If you have any questions or need to reschedule, please let us know.</p>

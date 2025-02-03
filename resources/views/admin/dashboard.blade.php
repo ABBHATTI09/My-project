@@ -92,6 +92,31 @@ $role_id=Session('user_role_id');
                         </div>
                     </div>
                 </div>
+                @elseif($role_id==4)
+                <!-- Doctor Dashboard -->
+                <div id="doctor-dashboard" class="container-xxl flex-grow-1 container-p-y">
+                    <h4>Mediator Dashboard</h4>
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5 class="card-title text-warning">Upcoming Appointments</h5>
+                                    <p>Review your appointments for the day.</p>
+                                    <a href="{{route('patient.appointments')}}" class="btn btn-warning">View  Appointments</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5 class="card-title text-info">Patient Records</h5>
+                                    <p>Access patient medical records securely.</p>
+                                    <a href="{{route('appointment.records')}}" class="btn btn-info">View Records</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
               @endif
             </div>
         </div>

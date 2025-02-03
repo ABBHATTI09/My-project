@@ -7,6 +7,7 @@ use App\Http\Controllers\PatientController;
 use App\Http\Controllers\ForgotPasswordController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\BookingController;
+use App\Http\Controllers\MediatorController;
 
 /*
 |--------------------------------------------------------------------------
@@ -71,10 +72,16 @@ Route::middleware('Checklogin')->group(function(){
 
     Route::get('/appointment/records',[BookingController::class,'records'])->name('appointment.records');
 
-    Route::get('/booking-email',function(){
-        return view('mail.doctorshow');
-    });
+    //Mediator
+    Route::get('mediator',[MediatorController::class,'index'])->name('mediator.index');
+    Route::get('mediator/add',[MediatorController::class,'create'])->name('mediator.create');
+    Route::post('mediator/add/store',[MediatorController::class,'store'])->name('mediator.store');
+    Route::post('/mediator/edit/{id}',[MediatorController::class,'edit'])->name('mediator.edit');
+    Route::get('/mediator/delete/{id}',[MediatorController::class,'delete'])->name('mediator.delete');
+    // mediator module
+    Route::get('/patient/appointments',[BookingController::class,'patient_appointment'])->name('patient.appointments');
 
+   
 });
 
 //check logout

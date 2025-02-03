@@ -178,6 +178,14 @@ $user = \App\Models\User::find($user_id);
                   <div data-i18n="Layouts">User/Patient</div>
                 </a>
               </li>
+              <!-- Mediator-->
+              <li class="menu-item {{ request()->routeIs('mediator.index') ? 'active' : '' }}">
+                <a href="{{route('mediator.index')}}" class="menu-link ">
+                  <i class="menu-icon tf-icons bx bx-recycle"></i>
+                  <div data-i18n="Layouts">Mediator</div>
+                </a>
+              </li>
+
            @endif
            <!--Admin role end-->
         <!--Doctor role start-->
@@ -220,6 +228,28 @@ $user = \App\Models\User::find($user_id);
               </li>
            @endif
         <!--User role end-->
+        <!--Mediator Role start-->
+        @if($user->role_id==4)
+        <!--Upcoming appointment-->
+        <li class="menu-item {{ request()->routeIs('patient.appointments') ? 'active' : '' }}">
+              <a href="{{route('patient.appointments')}}" class="menu-link ">
+                <i class="menu-icon tf-icons fa fa-user-md"></i>
+                <div data-i18n="Layouts">Patient Appointments</div>
+              </a>
+              </li>
+
+              <!-- users -->
+              <li class="menu-item {{ request()->routeIs('appointment.records') ? 'active' : '' }}">
+                <a href="{{route('appointment.records')}}" class="menu-link ">
+                  <i class="menu-icon tf-icons bx bx-user-circle"></i>
+                  <div data-i18n="Layouts">Patient Records</div>
+                </a>
+              </li>  
+
+
+        @endif
+        <!--Mediator Role end-->
+
              
            
            
@@ -270,6 +300,9 @@ $user = \App\Models\User::find($user_id);
                   @if($user->role_id==3)
                   Users / Patient
                   @endif
+                  @if($user->role_id==4)
+                  Mediator 
+                  @endif
                 </li>
                 <!-- User -->
                 <li class="nav-item navbar-dropdown dropdown-user dropdown">
@@ -307,6 +340,9 @@ $user = \App\Models\User::find($user_id);
                               @endif
                               @if($user->role_id==3)
                               Users / Patient
+                              @endif
+                              @if($user->role_id==4)
+                              Mediator
                               @endif
                              </small>
                              
