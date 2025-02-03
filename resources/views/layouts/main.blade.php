@@ -12,6 +12,26 @@
 <!-- Your Custom CSS -->
 <link href="{{ asset('css/styles.css') }}" rel="stylesheet">
 
+<style>
+  .background-image {
+    background-image: url("{{ asset('images/background.jpg') }}");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 100vh;
+    display: flex;
+    justify-content: left;
+    
+
+  }
+
+  .container-xxl {
+    
+  
+  }
+</style>
+
+
 </head>
 <body>
     <!-- Header -->

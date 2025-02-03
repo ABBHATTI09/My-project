@@ -10,8 +10,9 @@
 }
 .authentication-wrapper.authentication-basic {
   align-items: center;
-  justify-content: center;
+  justify-content: right;
   overflow: hidden;
+  padding-right:50px;
 }
 .authentication-wrapper.authentication-cover {
   align-items: flex-start;

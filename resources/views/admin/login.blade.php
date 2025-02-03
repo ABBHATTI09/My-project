@@ -4,7 +4,7 @@
 @section('content')
     <!--  Content -->
 
-
+    <div class="background-image">
     <div class="container-xxl">
       <div class="authentication-wrapper authentication-basic container-p-y">
         <div class="authentication-inner">
@@ -92,7 +92,7 @@
         </div>
       </div>
     </div>
-
+    </div>
     <!-- / Content -->
     @endsection
 
