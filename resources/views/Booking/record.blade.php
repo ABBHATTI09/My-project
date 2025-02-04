@@ -41,7 +41,8 @@
                         <th>Appointment Date</th>
                         <th>Appointment Time</th>
                         <th>Booking Type</th>
-                        <th>Appointment Status</th>
+                        <th>Mediator Status</th>
+                        <th>Doctor Status</th>
                       </tr>
                     </thead>
                     <tbody class="table-border-bottom-0">
@@ -76,6 +77,15 @@
                             <span class="badge bg-label-warning ">Pending</span>
 
                             @endif
+                        </td>
+                        <td style="text-align:center;">
+                        @if($appointment->doctor_status==1)
+                          <span class="badge bg-label-success ">Completed</span>
+                          @elseif($appointment->doctor_status==2)
+                          <span class="badge bg-label-warning ">Not-Completed</span>
+                          @else
+                          --
+                          @endif
                         </td>
                         <td>
                        

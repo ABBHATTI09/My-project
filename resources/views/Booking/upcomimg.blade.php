@@ -41,7 +41,8 @@
                         <th>Appointment Date</th>
                         <th>Appointment Time</th>
                         <th>Booking Type</th>
-                        <th>Appointment Status</th>
+                        <th>Mediator Status</th>
+                        <th>Doctor Status</th>
                         <th>Action</th>
                       </tr>
                     </thead>
@@ -78,6 +79,15 @@
 
                             @endif
                         </td>
+                        <td style="text-align:center;">
+                          @if($appointment->doctor_status==1)
+                          <span class="badge bg-label-success ">Completed</span>
+                          @elseif($appointment->doctor_status==2)
+                          <span class="badge bg-label-warning ">Not-Completed</span>
+                          @else
+                          --
+                          @endif
+                        </td>
                         <td>
                         <div class="btn-group">
                           <a href="" data-bs-toggle="modal" data-bs-target="#editTask{{$appointment->id}}" class="btn" ><i class="bx bx-edit-alt" title="Edit"></i></a>
@@ -106,7 +116,7 @@
                                 ></button>
                               </div>
 
-                              <form action="{{route('appointment.status',$appointment->id)}}" method="POST">
+                              <form action="{{route('appointment.doctorstatus',$appointment->id)}}" method="POST">
                                 @csrf
                             <div class="modal-body">
                               
@@ -119,9 +129,8 @@
                                           <select id="statusDropdown" class="form-control" name="status" >
                                           <option value=""disabled>---choose User status---</option>
                                           <option value="0">Pending</option>
-                                          <option value="1">Rejected</option>
-                                          <option value="2">Approval</option>
-                                          <option value="3">closed</option>
+                                          <option value="1">Completed</option>
+                                          <option value="2">Not-Completed</option>
                                          
                                           </select>
                                           @error('status')

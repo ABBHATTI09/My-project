@@ -66,7 +66,8 @@ Route::middleware('Checklogin')->group(function(){
 
     //Upcomming appointments and Rercords
     Route::get('/upcoming/appointments',[BookingController::class,'upcoming_appointment'])->name('upcoming.appointment');
-    Route::post('/appointment/status/{id}',[BookingController::class,'appointment_status'])->name('appointment.status');
+    //doctor status
+    Route::post('/appointment/doctorstatus/{id}',[BookingController::class,'appointment_doctorstatus'])->name('appointment.doctorstatus');
     Route::get('/appointment/delete/{id}',[BookingController::class,'appointment_delete'])->name('appointment.delete');
 
 
@@ -80,6 +81,9 @@ Route::middleware('Checklogin')->group(function(){
     Route::get('/mediator/delete/{id}',[MediatorController::class,'delete'])->name('mediator.delete');
     // mediator module
     Route::get('/patient/appointments',[BookingController::class,'patient_appointment'])->name('patient.appointments');
+    //mediator status
+    Route::post('/appointment/status/{id}',[BookingController::class,'appointment_status'])->name('appointment.status');
+
 
    
 });

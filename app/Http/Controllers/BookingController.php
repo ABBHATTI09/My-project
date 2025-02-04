@@ -61,7 +61,8 @@ class BookingController extends Controller
         $user=User::find($request->patient_name);
         $user1=User::find($request->doctor_name);
 
-        $mediator=User::where('role_id',4)->first();
+        $mediator=User::where('role_id',4)->where('status',1)->first();
+        dd($mediator);
        // dd($user1);
         $email=$user->email;
         $mediator_email=$mediator->email;
@@ -90,7 +91,8 @@ class BookingController extends Controller
         $user=User::find($request->patient_name);
         $user1=User::find($request->doctor_name);
 
-        $mediator=User::where('role_id',4)->first();
+        $mediator=User::where('role_id',4)->where('status',1)->first();
+      //  dd($mediator);
         
         $email=$user->email;
         $mediator_email=$mediator->email;
@@ -218,6 +220,9 @@ class BookingController extends Controller
         ->with(['patient','doctor'])->first();
        $patient_email=$appointments->patient->email;
        $doctor_email=$appointments->doctor->email;
+
+       //mediator details
+       
         $data=[
             'patient_name'=>$appointments->patient->fname.' '.$appointments->patient->lname,
             'doctor_name'=>$appointments->doctor->fname.' '.$appointments->doctor->lname,
@@ -283,5 +288,52 @@ class BookingController extends Controller
         $doctors = User::where('role_id', 2)->where('status', 1)->get();
 
         return view('mediator.appointment',compact('appointments','doctors'));
+    }
+
+    //doctor status
+    public function appointment_doctorstatus($id,request $request){
+     //   dd($request->all());
+     $booking_status = Bookingpatient::where('id', $id)->update(['doctor_status' => $request->status]);
+
+     $appointments=Bookingpatient::where('id',$id)
+     ->with(['patient','doctor'])->first();
+     
+    $patient_email=$appointments->patient->email;
+    $doctor_email=$appointments->doctor->email;
+    //mediator status
+    $mediator=User::where('role_id',4)->where('status',1)->first();
+    $mediator_email=$mediator->email;
+   // dd($mediator);
+     $data=[
+         'patient_name'=>$appointments->patient->fname.' '.$appointments->patient->lname,
+         'doctor_name'=>$appointments->doctor->fname.' '.$appointments->doctor->lname,
+         'mediator_name'=>$mediator->fname.' '.$mediator->lname,
+         'appointment_date'=>$appointments->appointment_date,
+         'appointment_time'=>$appointments->appointment_time,
+         'booking_type'=>$appointments->booking_type,
+         'status'=>$appointments->status,
+         'doctor_status'=>$appointments->doctor_status,
+     ];
+
+     //doctor status completed
+        //doctor to mediator mail
+        Mail::send('mediator.doctortomediator', ['data' => $data], function($message) use($mediator_email){
+            $message->to($mediator_email);
+            $message->subject('Appointment Completion Status');
+            });
+
+
+        //doctor to patient
+        Mail::send('mediator.doctortopatient', ['data' => $data], function($message) use($patient_email){
+            $message->to($patient_email);
+            $message->subject('Appointment Completion Status');
+            });
+
+
+     return back()->with('success','Updated Appointment status');
+     //doctor status Not-completed
+   
+
+
     }
 }
