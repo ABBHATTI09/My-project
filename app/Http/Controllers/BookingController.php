@@ -105,6 +105,7 @@ class BookingController extends Controller
             'appointment_date'=>$request->appointment_date,
             'appointment_time'=>$request->appointment_time,
             'booking_type'=>$request->booking_type,
+            'status'=>0,
         ];
        // dd($data);
         // Patient to confirm booking
