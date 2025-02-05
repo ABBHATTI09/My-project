@@ -113,4 +113,10 @@ class DoctorController extends Controller
         return view('doctor.show',compact('doctor'));
     }
 
+    //doctor edit details without login
+    public function doctorwithout(){
+        return view('doctor.withoutlogin.edit');
+
+    } 
+
 }

@@ -62,7 +62,7 @@ class BookingController extends Controller
         $user1=User::find($request->doctor_name);
 
         $mediator=User::where('role_id',4)->where('status',1)->first();
-        dd($mediator);
+     //   dd($mediator);
        // dd($user1);
         $email=$user->email;
         $mediator_email=$mediator->email;
@@ -74,6 +74,7 @@ class BookingController extends Controller
             'appointment_date'=>$request->appointment_date,
             'appointment_time'=>$request->appointment_time,
             'booking_type'=>$request->booking_type,
+            'status'=>0,
         ];
       //  dd($data);
         // Patient to confirm booking
@@ -208,6 +209,7 @@ class BookingController extends Controller
     public function upcoming_appointment(){
         $user_id=session('user_id');
         $appointments = Bookingpatient::where('doctor_id',$user_id)
+        ->where('status','=',2)
         ->where('appointment_date','>=',today())
         ->with(['patient','doctor'])->latest()->paginate(5);
         return view('Booking.upcomimg',compact('appointments'));

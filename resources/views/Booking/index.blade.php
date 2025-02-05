@@ -26,7 +26,7 @@
                         <div class="col-sm-6">
                             <label class="form-label" for="patient-select">Patient Full Name</label>
                             <select class="form-control" name="patient_name" id="patient-select">
-                                <option value="" disabled>Select Patient</option>
+                                <option value="" disabled selected>Select Patient</option>
                                 <option value="{{$user->id}}">
                                     {{$user->fname}} {{$user->lname}}
                                 </option>
@@ -43,7 +43,7 @@
                         <div class="col-sm-6">
                             <label class="form-label" for="patient-select">Select Doctor</label>
                             <select class="form-control" name="doctor_name" id="patient-select">
-                                <option value="" disabled>Select Doctor</option>
+                                <option value="" disabled selected>Select Doctor</option>
                                 @foreach($doctors as $doctor)
                                 <option value="{{$doctor->id}}">
                                     {{$doctor->fname }} {{$doctor->lname}}
@@ -105,7 +105,7 @@
                          <label class="form-label" for="basic-default-fullname">Booking Type</label>
                          <div class="col-sm-112">
                           <select name="booking_type" id="booking_type" class="form-control">
-                            <option value="" disabled class="text-center">---choose Booking Type---</option>
+                            <option value="" disabled selected>---choose Booking Type---</option>
                             <option value="1" {{ old('booking_type') == 1 ? 'selected' : '' }}>Normal Booking</option>
                             <option value="0" {{ old('booking_type') == 0 ? 'selected' : '' }}>Emergency Booking</option>
                           </select>
@@ -190,6 +190,7 @@
 <script>
       document.addEventListener("DOMContentLoaded", function () {
         let bookingType = document.getElementById("booking_type");
+    //    alert(bookingType)
         let dateToTime = document.getElementById("datetotime");
         function toggleDateToTime() {
             if (bookingType.value == "1") {

@@ -2,7 +2,11 @@
 @section('title','Booking Records')
 @section('content')
 <!-- Content wrapper -->
-<div class="content-wrapper">
+<?php
+$user_id=session('user_id');
+$user = \App\Models\User::find($user_id);
+ ?>
+ <div class="content-wrapper">
             <!-- Content -->
 
             <div class="container-xxl flex-grow-1 container-p-y">
@@ -50,7 +54,7 @@
                     <?php         $i = ($appointments->currentPage() - 1) * $appointments->perPage() + 1;?>
 
                       @foreach($appointments as $appointment)
-
+                      @if($user->role_id==4)
                       <tr>
                         <td>{{$i}}</td>
                         <td>{{$appointment->patient->fname}} {{$appointment->patient->lname}}</td>
@@ -161,7 +165,53 @@
 
                         </td>
                       </tr>
+                      @endif
+
+                      @if($user->role_id==2)
+                      @if($appointment->status==2)
+
+                      <tr>
+                        <td>{{$i}}</td>
+                        <td>{{$appointment->patient->fname}} {{$appointment->patient->lname}}</td>
+                        <td>{{$appointment->doctor->fname}} {{$appointment->doctor->lname}}</td>
+                        <td>{{$appointment->appointment_date}}</td>
+                        <td>{{ date('h:i A', strtotime($appointment->appointment_time)) }}</td>                        
+                        <td>@if($appointment->booking_type==1)
+                            <span class="badge bg-label-success ">Normal Booking</span>
+                           @else
+                           <span class="badge bg-label-danger ">Emergency Booking</span>
+                           @endif
+                        </td>
+                        <td>
+                            @if($appointment->status==1)
+                            <span class="badge bg-label-danger ">Reject</span>
+
+                            @elseif($appointment->status==2)
+                            <span class="badge bg-label-success ">Approval</span>
+
+                            @elseif($appointment->status==3)
+                            <span class="badge bg-label-info ">closed</span>
+
+                            @else
+                            <span class="badge bg-label-warning ">Pending</span>
+
+                            @endif
+                        </td>
+                        <td style="text-align:center;">
+                        @if($appointment->doctor_status==1)
+                          <span class="badge bg-label-success ">Completed</span>
+                          @elseif($appointment->doctor_status==2)
+                          <span class="badge bg-label-warning ">Not-Completed</span>
+                          @else
+                          --
+                          @endif
+                        </td>
+                        <td>
+                        </tr>
                       <?php $i++;?>
+                      @endif
+
+                      @endif
 
                       @endforeach
                       @else

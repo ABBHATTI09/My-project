@@ -115,7 +115,12 @@ Route::post('forgot-password',[ForgotPasswordController::class,'sendmail'])->nam
 Route::get('reset-password/{token}', [ForgotPasswordController::class, 'showResetPasswordForm'])->name('reset.password.get');
 Route::post('reset-password',[ForgotPasswordController::class,'Resetpasswordsubmit'])->name('reset.password.post');
 
+//doctor edit details
+
+
 
 
 
 });
+//doctor edit details
+Route::get('doctor-edit',[DoctorController::class,'doctorwithout'])->name('doctor.edit.withoutlogin');
