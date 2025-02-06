@@ -65,16 +65,29 @@
 
   <body>
     <!-- Layout wrapper -->
-     
+        @if(!Empty($user))
         <!-- Layout container -->
-     
+      <?php echo $user->fname; ?>
 
           <!-- Content wrapper -->
           <div class="content-wrapper">
             <!-- Content -->
-
             <div class="container-xxl flex-grow-1 container-p-y">
+            @session('success')
+                  <div class="alert alert-success" role="alert"> 
+                      {{ $value }}
+                  </div>
+              @endsession
 
+              @session('error')
+                  <div class="alert alert-danger" role="alert"> 
+                      {{ $value }}
+                  </div>
+              @endsession
+
+              <form action="{{route('editprofile.update')}}" method="post" enctype="multipart/form-data">
+                @csrf
+              <input type="hidden" name="token" value="{{ $token }}">
               <div class="row">
                 <div class="col-md-12">
                  
@@ -104,10 +117,7 @@
                               accept="image/png, image/jpeg"
                             />
                           </label>
-                          <button type="button" class="btn btn-outline-secondary account-image-reset mb-4">
-                            <i class="bx bx-reset d-block d-sm-none"></i>
-                            <span class="d-none d-sm-block">Reset</span>
-                          </button>
+                         
 
                         </div>
                       </div>
@@ -121,27 +131,57 @@
                             <h2>Personal Details:</h2>
                             <div class="mb-3 col-md-6">
                                 <label for="firstName" class="form-label">First Name</label>
-                                <input class="form-control" type="text" id="firstName" name="firstName" value="John" autofocus />
+                                <input class="form-control" type="text" id="firstName" name="firstName" value="{{ old('firstName', $user->fname) }}" autofocus readonly />
                             </div>
                             <div class="mb-3 col-md-6">
                                 <label for="lastName" class="form-label">Last Name</label>
-                                <input class="form-control" type="text" name="lastName" id="lastName" value="Doe" />
+                                <input class="form-control" type="text" name="lastName" id="lastName" value="{{old('lastName',$user->lname)}}" autofocus readonly/>
                             </div>
                             <div class="mb-3 col-md-6">
                                 <label for="email" class="form-label">E-mail</label>
-                                <input class="form-control" type="text" id="email" name="email" value="john.doe@example.com" placeholder="john.doe@example.com" />
+                                <input class="form-control" type="text" id="email" name="email" value="{{old('email',$user->email)}}" placeholder="john.doe@example.com" autofocus readonly/>
                             </div>
                             <div class="mb-3 col-md-6">
                                 <label class="form-label" for="phoneNumber">Phone Number</label>
                                 <div class="input-group input-group-merge">
-                                <span class="input-group-text">US (+1)</span>
-                                <input type="text" id="phoneNumber" name="phoneNumber" class="form-control" placeholder="202 555 0111" />
+                                <input type="text" id="phoneNumber" name="phoneNumber" class="form-control" value="{{old('phoneNumber',$user->phone)}}" placeholder="" autofocus readonly/>
                                 </div>
                             </div>
                             <div class="mb-3 col-md-6">
-                                <label for="organization" class="form-label">Organization</label>
-                                <input type="text" class="form-control" id="organization" name="organization" value="ThemeSelection" />
+                                <label class="form-label" for="phoneNumber">Date of Birth</label>
+                                <input type="date" id="phoneNumber" name="date_of_birth" class="form-control" value="{{old('dob')}}" placeholder="" />
+                                @error('date_of_birth')
+                                            <span class="text-danger" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
                             </div>
+                            <div class="mb-3 col-md-6">
+                                <label class="form-label" for="phoneNumber">Age</label>
+                                
+                                <input type="number" id="" name="age" class="form-control" value="{{old('age')}}" placeholder="" />
+                                @error('age')
+                                            <span class="text-danger" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                
+                            </div>
+                            <div class="mb-3 col-md-6">
+                                <label for="" class="form-label">Gender</label>
+                                <select id="" class="select2 form-select" name="gender">
+                                <option value=" "  seleted>Select Gender</option>
+                                <option value="male">Male</option>
+                                <option value="female">Female</option>
+                               
+                                </select>
+                                @error('gender')
+                                            <span class="text-danger" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                            </div>
+                            
                         </div>
                         <!--address-->
                         <div class="row">
@@ -150,26 +190,47 @@
                             <div class="mb-3 col-md-6">
                                 <label for="address" class="form-label">Address</label>
                                 <input type="text" class="form-control" id="address" name="address" placeholder="Address" />
+                                @error('address')
+                                            <span class="text-danger" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                            </div>
+                            <div class="mb-3 col-md-6">
+                                <label for="address" class="form-label">City</label>
+                                <input type="text" class="form-control" id="city" name="city" placeholder="Morbi" />
+                                @error('city')
+                                            <span class="text-danger" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
                             </div>
                             <div class="mb-3 col-md-6">
                                 <label for="state" class="form-label">State</label>
-                                <input class="form-control" type="text" id="state" name="state" placeholder="California" />
+                                <input class="form-control" type="text" id="state" name="state" placeholder="Gujarat" />
+                                @error('state')
+                                            <span class="text-danger" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                            </div>
+                            <div class="mb-3 col-md-6">
+                                <label for="zipCode" class="form-label">Country</label>
+                                <input type="text" class="form-control" id="country" name="country" placeholder="Bharat"  />
+                                @error('country')
+                                            <span class="text-danger" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
                             </div>
                             <div class="mb-3 col-md-6">
                                 <label for="zipCode" class="form-label">Zip Code</label>
-                                <input type="text" class="form-control" id="zipCode" name="zipCode" placeholder="231465" maxlength="6" />
-                            </div>
-                            <div class="mb-3 col-md-6">
-                                <label class="form-label" for="country">Country</label>
-                                <select id="country" class="select2 form-select">
-                                <option value="">Select</option>
-                                <option value="Australia">Australia</option>
-                                <option value="Bangladesh">Bangladesh</option>
-                                <option value="Canada">Canada</option>
-                                <option value="India">India</option>
-                                <option value="United States">United States</option>
-                                <!-- Add other countries as needed -->
-                                </select>
+                                <input type="text" class="form-control" id="zipCode" name="zipcode" placeholder="363660" maxlength="6" />
+                                @error('zipcode')
+                                            <span class="text-danger" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
                             </div>
                         </div>
 
@@ -179,7 +240,7 @@
 
                             <div class="mb-3 col-md-6">
                                 <label for="language" class="form-label">Language</label>
-                                <select id="language" class="select2 form-select">
+                                <select id="language" name="language" class="select2 form-select">
                                 <option value="">Select Language</option>
                                 <option value="en">English</option>
                                 <option value="fr">French</option>
@@ -187,33 +248,18 @@
                                 <option value="pt">Portuguese</option>
                                 </select>
                             </div>
-                            <div class="mb-3 col-md-6">
-                                <label for="timeZones" class="form-label">Timezone</label>
-                                <select id="timeZones" class="select2 form-select">
-                                <option value="">Select Timezone</option>
-                                <option value="-12">(GMT-12:00) International Date Line West</option>
-                                <option value="-11">(GMT-11:00) Midway Island, Samoa</option>
-                                <option value="-10">(GMT-10:00) Hawaii</option>
-                                <option value="-8">(GMT-08:00) Pacific Time (US & Canada)</option>
-                                <!-- Add other timezones as needed -->
-                                </select>
-                            </div>
-                            <div class="mb-3 col-md-6">
-                                <label for="currency" class="form-label">Currency</label>
-                                <select id="currency" class="select2 form-select">
-                                <option value="">Select Currency</option>
-                                <option value="usd">USD</option>
-                                <option value="euro">Euro</option>
-                                <option value="pound">Pound</option>
-                                <option value="bitcoin">Bitcoin</option>
-                                </select>
-                            </div>
+                                    @error('language')
+                                            <span class="text-danger" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                          
                         </div>
 
 
 
                         <div class="mt-2">
-                          <button type="submit" class="btn btn-primary me-2">Save changes</button>
+                          <button type="submit" class="btn btn-primary me-2">Submit</button>
                           <button type="reset" class="btn btn-outline-secondary">Cancel</button>
                         </div>
                       </form>
@@ -223,6 +269,7 @@
                   
                 </div>
               </div>
+              </form>
             </div>
             <!-- / Content -->
 
@@ -258,5 +305,10 @@
 
     <!-- Place this tag in your head or just before your close body tag. -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
+    @else
+    <div class="alert alert-danger" role="alert"> 
+                      Token is Invalid or blank
+                  </div>
+                      @endif
   </body>
 </html>

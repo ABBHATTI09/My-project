@@ -123,4 +123,10 @@ Route::post('reset-password',[ForgotPasswordController::class,'Resetpasswordsubm
 
 });
 //doctor edit details
-Route::get('doctor-edit',[DoctorController::class,'doctorwithout'])->name('doctor.edit.withoutlogin');
+Route::get('edit-profile/{token}',[DoctorController::class,'doctorwithout'])->name('edit.profile');
+Route::post('edit-profile/',[DoctorController::class,'editprofile'])->name('editprofile.update');
+Route::get('doctor/sendlink/{id}',[DoctorController::class,'sendlink'])->name('doctor.sendlink');
+
+Route::get('edit-profile/submitform',[DoctorController::class,'submiteditform']);
+
+

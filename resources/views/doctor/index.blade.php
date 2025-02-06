@@ -40,7 +40,7 @@
                         <th>Email</th>
                         <th>phone</th>
                         <th>status</th>
-                        <th>Action</th>
+                        <th style="text-align:center;">Action</th>
                       </tr>
                     </thead>
                     <tbody class="table-border-bottom-0">
@@ -62,15 +62,16 @@
                         </td>
                         <td>
                         <div class="btn-group">
-                          <a href="" data-bs-toggle="modal" data-bs-target="#editTask{{$doctor->id}}" class="btn" ><i class="bx bx-edit-alt" title="Edit"></i></a>
-                          <a href="{{route('doctor.delete',$doctor->id)}}" class="btn btn-delete" > <i class="bx bx-trash" title="Delete"></i></a> 
+                          <a href="" data-bs-toggle="modal" data-bs-target="#editTask{{$doctor->id}}" class="btn btn-outline-primary" ><i class="bx bx-edit-alt" title="Edit"></i></a>
+                          <a href="{{route('doctor.delete',$doctor->id)}}" class="btn btn-outline-danger" data-bs> <i class="bx bx-trash" title="Delete"></i></a> 
+                          <a href="{{route('doctor.sendlink',$doctor->id)}}" class="btn btn-outline-primary">Send Link</a>
                         
                       </div>
                       
 <!-- edit task Model start-->
    <!-- Default Modal -->
    <div class="col-lg-4 col-md-6">
-                      <div class="mt-3">
+                      <div class="">
                         <!-- Button trigger modal -->
                         
 
@@ -205,7 +206,7 @@
 
               <script>
                 document.addEventListener('DOMContentLoaded', function() {
-    const deleteBtns = document.querySelectorAll('.btn-delete');
+    const deleteBtns = document.querySelectorAll('.btn-outline-danger');
 
     deleteBtns.forEach(btn => {
         btn.addEventListener('click', function(e) {
