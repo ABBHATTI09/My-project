@@ -65,9 +65,8 @@
 
   <body>
     <!-- Layout wrapper -->
-        @if(!Empty($user))
+        @if(!Empty($user) && $user->profile_token !=null)
         <!-- Layout container -->
-      <?php echo $user->fname; ?>
 
           <!-- Content wrapper -->
           <div class="content-wrapper">
@@ -94,7 +93,7 @@
                   <div class="card mb-4">
                     <h5 class="card-header">Doctor Details</h5>
                     <!-- Account -->
-                    <div class="card-body">
+                    <!-- <div class="card-body">
                       <div class="d-flex align-items-start align-items-sm-center gap-4">
                                 <img
                                 src="{{ asset('images/default.jpg') }}"
@@ -122,7 +121,7 @@
                         </div>
                       </div>
                     </div>
-                    <hr class="my-0" />
+                    <hr class="my-0" /> -->
                     <div class="card-body">
                       <form id="formAccountSettings" method="POST" onsubmit="return false">
                         <!--person details -->
@@ -148,8 +147,8 @@
                                 </div>
                             </div>
                             <div class="mb-3 col-md-6">
-                                <label class="form-label" for="phoneNumber">Date of Birth</label>
-                                <input type="date" id="phoneNumber" name="date_of_birth" class="form-control" value="{{old('dob')}}" placeholder="" />
+                                <label class="form-label" for="date_of_birth">Date of Birth</label>
+                                <input type="date" id="date_of_birth" name="date_of_birth" class="form-control" value="{{old('dob')}}"  placeholder="" />
                                 @error('date_of_birth')
                                             <span class="text-danger" role="alert">
                                             <strong>{{ $message }}</strong>
@@ -159,7 +158,7 @@
                             <div class="mb-3 col-md-6">
                                 <label class="form-label" for="phoneNumber">Age</label>
                                 
-                                <input type="number" id="" name="age" class="form-control" value="{{old('age')}}" placeholder="" />
+                                <input type="number" id="age" name="age" class="form-control" value="{{old('age')}}" placeholder=""  readonly />
                                 @error('age')
                                             <span class="text-danger" role="alert">
                                             <strong>{{ $message }}</strong>
@@ -242,10 +241,12 @@
                                 <label for="language" class="form-label">Language</label>
                                 <select id="language" name="language" class="select2 form-select">
                                 <option value="">Select Language</option>
-                                <option value="en">English</option>
-                                <option value="fr">French</option>
-                                <option value="de">German</option>
-                                <option value="pt">Portuguese</option>
+                                <option value="gujarati">Gujarati</option>
+                                <option value="Hindi">Hindi</option>
+                                <option value="english">English</option>
+                                <option value="french">French</option>
+                                <option value="german">German</option>
+                                <option value="portuguese">Portuguese</option>
                                 </select>
                             </div>
                                     @error('language')
@@ -306,9 +307,40 @@
     <!-- Place this tag in your head or just before your close body tag. -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
     @else
-    <div class="alert alert-danger" role="alert"> 
-                      Token is Invalid or blank
+    <div class="alert alert-danger text-center"> 
+                      Token is Invalid
                   </div>
                       @endif
   </body>
 </html>
+<script>
+  //before 18 year 
+    let today_date=new Date();
+    let minDate=new Date();
+    minDate.setFullYear(today_date.getFullYear() - 18);
+
+    let formattedDate = minDate.toISOString().split("T")[0];
+    document.getElementById("date_of_birth").setAttribute("max", formattedDate);
+
+  //calculate
+  document.addEventListener("DOMContentLoaded", function() {
+    let dob=document.getElementById('date_of_birth');
+    let Age=document.getElementById('age');
+
+    dob.addEventListener('change',function(){
+     // alert('ab');
+     let dob = new Date(this.value);
+            let today = new Date();
+            let age = today.getFullYear() - dob.getFullYear();
+           // alert(age);
+        Age.value = age > 0 ? age : 0;
+
+
+    });
+  });
+
+
+
+
+
+</script>
